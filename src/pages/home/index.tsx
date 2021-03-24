@@ -1,5 +1,6 @@
 import Button from 'core/components/Button';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const Home = () => (
@@ -17,9 +18,9 @@ const Home = () => (
           for Figma, de Mateusz Wierzbicki: <span className="email">antforfigma@gmail.com</span> 
         </p>
       </div>
-      <a href="/search">
-        <Button text="Começar"/>
-      </a>
+        <Link to="/search">
+          <Button text="Começar" disabled={false}/>
+        </Link>
     </div>
   </div>
 );

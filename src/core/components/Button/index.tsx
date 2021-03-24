@@ -3,11 +3,12 @@ import './styles.scss';
 
 type Props = {
   text: string;
+  disabled: boolean;
 }
 
-const Button = ({ text }: Props) => {
+const Button = ({ text, disabled }: Props) => {
   return (
-    <button className="button">{text}</button>
+    <button className="button" disabled={disabled}>{text}</button>
   );
 }
 
