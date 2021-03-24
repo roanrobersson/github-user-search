@@ -1,11 +1,16 @@
+import Navbar from 'core/components/Navbar';
+import Search from 'pages/search';
 import React from 'react';
 import './App.scss';
 
 function App() {
   return (
-    <div>
-      React project created
-    </div>
+    <>
+      <Navbar />
+      <div className="app-container">
+        <Search/>
+      </div>
+    </>
   );
 }
 
