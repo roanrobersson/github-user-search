@@ -4,12 +4,15 @@ import ImageLoader from './components/Loaders/ImageLoader';
 import InfoLoader from './components/Loaders/InfoLoader';
 import { makeRequest } from 'core/utils/request';
 import { SearchResult } from 'core/types/SearchResult';
+import { useAlert} from 'react-alert';
 import './styles.scss';
 
 const Search = () => {
+  const alert = useAlert();
   const [hasSearched, setHasSearched] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [validInputText, setValidInputText] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<SearchResult>({
     avatar_url: '',
     html_url: '',
@@ -23,7 +26,9 @@ const Search = () => {
   });
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
-    setSearch(event.target.value);
+    let text = event.target.value;
+    setSearch(text);
+    setValidInputText(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(text));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,9 +40,13 @@ const Search = () => {
         setSearchResult(response.data)
       })
       .catch(error => {
-        (error.response.status === 404)
-        ? setSearch('')
-        : console.log(error.response.status)
+        if (error.response) {
+          (error.response.status === 404) 
+          ? alert.error("Esse usuário não existe")
+          : alert.error("Erro ao pesquisar usuário");
+        } else {
+          alert.error("Erro de conexão");
+        }
         setHasSearched(false);
       })   
       .finally(() => {
@@ -48,19 +57,18 @@ const Search = () => {
   return (
     <div className="search-container">
       <div className="search-content">
-
         {/* Form */}
         <form onSubmit={handleSubmit} className="form-container">
           <h1 className="form-title">Encontre um perfil Github</h1>
           <input 
-            className="form-input" 
+            className={`form-input ${(validInputText || search === '') ? '': 'input-invalid'}`}
             type="text" 
             placeholder="Usuário Github"
             maxLength={45}
             onChange={handleOnChange}
             value={search}
           />
-          <Button text="Encontrar" disabled={search === ''}/>
+          <Button text="Encontrar" disabled={!validInputText}/>
         </form>
 
         {/* Result */}
