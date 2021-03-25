@@ -1,8 +1,8 @@
 import React from 'react'
-import InfoIcon from './icons/InfoIcon'
-import SuccessIcon from './icons/SuccessIcon'
-import ErrorIcon from './icons/ErrorIcon'
-import CloseIcon from './icons/CloseIcon'
+import InfoIcon from '../../assets/icons/InfoIcon'
+import SuccessIcon from '../../assets/icons/SuccessIcon'
+import ErrorIcon from '../../assets/icons/ErrorIcon'
+import CloseIcon from '../../assets/icons/CloseIcon'
 import { AlertComponentPropsWithStyle } from 'react-alert';
 import './styles.scss';
 
