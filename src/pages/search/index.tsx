@@ -4,7 +4,8 @@ import ImageLoader from './components/Loaders/ImageLoader';
 import InfoLoader from './components/Loaders/InfoLoader';
 import { makeRequest } from 'core/utils/request';
 import { SearchResult } from 'core/types/SearchResult';
-import { useAlert} from 'react-alert';
+import { useAlert } from 'react-alert';
+import dayjs from 'dayjs'
 import './styles.scss';
 
 const Search = () => {
@@ -108,7 +109,7 @@ const Search = () => {
                     </div>
                     <div className="info-personal-field">
                       <span className="field-name">Membro desde: </span> 
-                      <span className="field-text">{searchResult.created_at}</span>
+                      <span className="field-text">{dayjs(searchResult.created_at).format('DD/MM/YYYY')}</span>
                     </div>
                 </div>
                 </>
